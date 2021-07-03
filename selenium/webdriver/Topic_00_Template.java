@@ -24,7 +24,7 @@ public class Topic_00_Template {
 		// Set timeout để tìm element
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		// Mở application lên (AUT / SUT)
-		driver.get("http://demo.guru99.com/v4/");
+		driver.get("http://live.demoguru99.com/index.php/customer/account/login/");	
 		 
 	}
 	
