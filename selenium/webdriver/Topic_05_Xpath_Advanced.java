@@ -67,6 +67,16 @@ public class Topic_05_Xpath_Advanced {
 		
 	}
 	
+	public void TC_06_Axes() {
+		driver.get("http://live.demoguru99.com/index.php/mobile.html");
+		driver.findElement(By.xpath
+				("//a[text()='Samsung Galaxy']/parent::h2/following-sibling::div[@class='actions']/button")).click();
+		
+	}
+	
+	public void TC_07_CSS() {
+		
+	}
 	
 	@AfterClass
 	public void afterClass() {
