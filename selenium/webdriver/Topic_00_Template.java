@@ -15,11 +15,13 @@ public class Topic_00_Template {
 	
 	// Khai báo biến đại diện cho Selenium WebDriver
 	WebDriver driver;
-	
+	String projectPath = System.getProperty("user.dir");
+
 	// precondition
 	@BeforeClass
 	public void beforeClass() {
 		// Mở trình duyệt Firefox
+		System.setProperty("webdriver.gecko.driver", projectPath+"\\driverBrowsers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		// Set timeout để tìm element
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);

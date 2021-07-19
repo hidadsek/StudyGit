@@ -2,7 +2,7 @@ package webdriver;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Assert;
+import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,11 +14,13 @@ public class Topic_05_Xpath_Advanced {
 	
 	// Khai báo biến đại diện cho Selenium WebDriver
 	WebDriver driver;
-	
+	String projectPath = System.getProperty("user.dir");
+
 	// precondition
 	@BeforeClass
 	public void beforeClass() {
 		// Mở trình duyệt Firefox
+		System.setProperty("webdriver.gecko.driver", projectPath+"\\driverBrowsers\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		// Set timeout để tìm element
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
