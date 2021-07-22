@@ -36,7 +36,7 @@ public class Topic_01_DataType {
 		
 		// reference data type
 		// String
-		String address = "Ho Chi Minh";
+		String address = "Ha Noi";
 		
 		// Array
 		String[] studentName = {"An","Hoa","Thuong"};
