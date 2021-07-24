@@ -66,13 +66,11 @@ public class Topic_07_Textbox_TextArea_Exercise {
 	@BeforeClass
 	public void beforeClass() {
 		// Firefox Driver
-		/*
 		System.setProperty("webdriver.gecko.driver", projectPath+"\\driverBrowsers\\geckodriver.exe");
 		driver = new FirefoxDriver();
-		*/
 		// Chrome Driver
-		System.setProperty("webdriver.chrome.driver", projectPath+"\\driverBrowsers\\chromedriver.exe");
-		driver = new FirefoxDriver();
+		//System.setProperty("webdriver.chrome.driver", projectPath+"\\driverBrowsers\\chromedriver.exe");
+		//driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		
@@ -97,7 +95,12 @@ public class Topic_07_Textbox_TextArea_Exercise {
 		// Step 4: Nhập giá trị của customer mới và click submit
 		driver.findElement(customerNameTextbox).sendKeys(customerName);
 		driver.findElement(genderRadioButton).click();
-		driver.findElement(DOBTextbox).sendKeys("11051995");
+		
+		// For chrome
+		//driver.findElement(DOBTextbox).sendKeys("11051995");
+		// For Firefox
+		driver.findElement(DOBTextbox).sendKeys("1995-05-11");
+		
 		driver.findElement(addressTextarea).sendKeys(address);
 		driver.findElement(cityTextbox).sendKeys(city);
 		driver.findElement(stateTextbox).sendKeys(state);
