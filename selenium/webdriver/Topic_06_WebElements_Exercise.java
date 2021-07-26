@@ -35,19 +35,19 @@ public class Topic_06_WebElements_Exercise {
 		driver.manage().window().maximize();
 	}
 	
-	@Test
+	
 	public void TC_01_VerifyElementDisplay() {
 		// Step 1: Mở website
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		
 		// Step 1.1 Tạo biến
-		WebElement email = driver.findElement(emailCheckBox);
+		WebElement emailTextbox = driver.findElement(emailCheckBox);
 		WebElement age = driver.findElement(under18RadioButton);
 		WebElement education = driver.findElement(educationTextArea);
 		WebElement user5 = driver.findElement(By.xpath("//h5[contains(text(),'User5')]"));
 				
 		// Step 2: Kiểm tra phần tử có hiện trên trang không
-		assertTrue(email.isDisplayed());
+		assertTrue(emailTextbox.isDisplayed());
 		assertTrue(age.isDisplayed());
 		assertTrue(education.isDisplayed());
 		
@@ -55,23 +55,23 @@ public class Topic_06_WebElements_Exercise {
 		assertFalse(user5.isDisplayed());
 		
 		// Step 4: Nhập giá trị và in ra màn hình
-		inputValueToElement(email,"Automation Testing");
+		inputValueToElement(emailTextbox,"Automation Testing");
 		inputValueToElement(education,"Automation Testing");
 		age.click();
 		
-		isElementDisplayed(email);
+		isElementDisplayed(emailTextbox);
 		isElementDisplayed(age);
 		isElementDisplayed(education);
 		isElementDisplayed(user5);			
 	}
 	
-	@Test
+	
 	public void TC_02_VerifyElementEnabledDisabled() {
 		// Step 1: Mở website
 		driver.get("https://automationfc.github.io/basic-form/index.html");
 		
 		// Step 1.1 Tạo biến		
-		WebElement email = driver.findElement(emailCheckBox);
+		WebElement emailTextbox = driver.findElement(emailCheckBox);
 		WebElement age = driver.findElement(under18RadioButton);
 		WebElement education = driver.findElement(educationTextArea);
 		WebElement job1 = driver.findElement(By.name("user_job1"));
@@ -79,7 +79,7 @@ public class Topic_06_WebElements_Exercise {
 		WebElement development = driver.findElement(By.id("development"));
 		WebElement slider = driver.findElement(By.id("slider-1"));
 		
-		WebElement password = driver.findElement(By.id("password"));
+		WebElement passwordTextbox = driver.findElement(By.id("passwordTextbox"));
 		WebElement age2 = driver.findElement(By.id("radio-disabled"));
 		WebElement biography = driver.findElement(By.id("bio"));
 		WebElement job3 = driver.findElement(By.id("job3"));
@@ -87,7 +87,7 @@ public class Topic_06_WebElements_Exercise {
 		WebElement slider2 = driver.findElement(By.id("slider-2"));
 				
 		// Step 2: Kiểm tra phần tử có được enabled trên trang không
-		assertTrue(email.isEnabled());
+		assertTrue(emailTextbox.isEnabled());
 		assertTrue(age.isEnabled());
 		assertTrue(education.isEnabled());
 		assertTrue(job1.isEnabled());
@@ -96,7 +96,7 @@ public class Topic_06_WebElements_Exercise {
 		assertTrue(development.isEnabled());
 		
 		// Step 3: Kiểm tra phần tử bị disabled trên trang
-		assertFalse(password.isEnabled());
+		assertFalse(passwordTextbox.isEnabled());
 		assertFalse(age2.isEnabled());
 		assertFalse(biography.isEnabled());
 		assertFalse(job3.isEnabled());
@@ -104,14 +104,14 @@ public class Topic_06_WebElements_Exercise {
 		assertFalse(slider2.isEnabled());
 		
 		// Step 4: log message
-		isElementEnabled(email);
+		isElementEnabled(emailTextbox);
 		isElementEnabled(age);
 		isElementEnabled(education);
 		isElementEnabled(job1);
 		isElementEnabled(job2);
 		isElementEnabled(slider);
 		isElementEnabled(development);
-		isElementEnabled(password);
+		isElementEnabled(passwordTextbox);
 		isElementEnabled(age2);
 		isElementEnabled(biography);
 		isElementEnabled(job3);
@@ -120,7 +120,7 @@ public class Topic_06_WebElements_Exercise {
 
 	}
 	
-	@Test
+	
 	public void TC_03_VerifyElementSelected() {
 		// Step 1: Mở website
 		driver.get("https://automationfc.github.io/basic-form/index.html");
@@ -154,48 +154,60 @@ public class Topic_06_WebElements_Exercise {
 		driver.get("https://login.mailchimp.com/signup/");
 		
 		// Step 1.1 Tạo biến
-		WebElement email = driver.findElement(By.id("email"));
-		WebElement username = driver.findElement(By.id("new_username"));
-		WebElement password = driver.findElement(By.id("new_password"));	
+		WebElement emailTextbox = driver.findElement(By.id("email"));
+		WebElement usernameTextbox = driver.findElement(By.id("new_username"));
+		WebElement passwordTextbox = driver.findElement(By.id("new_password"));
+		WebElement signUpButton = driver.findElement(By.id("create-account"));
 		
-		//Step 2: Nhập dữ liệu hợp lệ vào email và username
-		inputValueToElement(email,"nguyendongthuc13@gmail.com");
-		inputValueToElement(username,"hidadsek");
+		//Step 2: Nhập dữ liệu hợp lệ vào emailTextbox và usernameTextbox
+		inputValueToElement(emailTextbox,"nguyendongthuc13@gmail.com");
+		inputValueToElement(usernameTextbox,"hidadsek");
 		
 		//Step 3.1: Nhập pass chỉ có số
-		inputValueToElement(password,"123");
+		inputValueToElement(passwordTextbox,"123");
 		WebElement numberValidation = 
 				driver.findElement(By.xpath("//li[contains(@class,'completed') and text()='One number']"));
 		assertTrue(numberValidation.isDisplayed());
+		assertFalse(signUpButton.isEnabled());
 		
 		//Step 3.2: Nhập pass chỉ có chữ thường
-		inputValueToElement(password,"test");
+		inputValueToElement(passwordTextbox,"test");
 		WebElement lowercaseValidation = 
 				driver.findElement(By.xpath("//li[contains(@class,'completed') and text()='One lowercase character']"));
 		assertTrue(lowercaseValidation.isDisplayed());
+		assertFalse(signUpButton.isEnabled());
+		assertFalse(signUpButton.isEnabled());
 		
 		//Step 3.3: Nhập pass chỉ có chữ hoa
-		inputValueToElement(password,"TEST");
+		inputValueToElement(passwordTextbox,"TEST");
 		WebElement uppercaseValidation = 
 				driver.findElement(By.xpath("//li[contains(@class,'completed') and text()='One uppercase character']"));
 		assertTrue(uppercaseValidation.isDisplayed());
+		assertFalse(signUpButton.isEnabled());
 		
 		//Step 3.4: Nhập pass có chữ special
-		inputValueToElement(password,"T&T");
+		inputValueToElement(passwordTextbox,"T&T");
 		WebElement specialCharValidation = 
 				driver.findElement(By.xpath("//li[contains(@class,'completed') and text()='One special character']"));
 		assertTrue(specialCharValidation.isDisplayed());
+		assertFalse(signUpButton.isEnabled());
 		
 		//Step 3.5: Nhập pass có nhiều hơn 8 ký tự
-		inputValueToElement(password,"testing1");
+		inputValueToElement(passwordTextbox,"testing1");
 		WebElement moreThan8CharValidation = 
 				driver.findElement(By.xpath("//li[contains(@class,'completed') and text()='8 characters minimum']"));
 		assertTrue(moreThan8CharValidation.isDisplayed());
+		assertFalse(signUpButton.isEnabled());
 		
-		//Step 4: Check Sign Up button
-		password.clear();
-		WebElement signUp = driver.findElement(By.id("create-account"));
-		assertTrue(!signUp.isEnabled());
+		//Step 4: Nhập valid password
+		inputValueToElement(passwordTextbox, "Test@1234");
+		assertFalse(numberValidation.isDisplayed());
+		assertFalse(lowercaseValidation.isDisplayed());
+		assertFalse(uppercaseValidation.isDisplayed());
+		assertFalse(specialCharValidation.isDisplayed());
+		assertFalse(moreThan8CharValidation.isDisplayed());
+		assertTrue(driver.findElement(By.cssSelector(".c-media h4")).isDisplayed());
+		assertTrue(signUpButton.isEnabled());
 		
 		//Step 5: Check checkbox được selected
 		WebElement newsLetter = driver.findElement(By.id("marketing_newsletter"));
