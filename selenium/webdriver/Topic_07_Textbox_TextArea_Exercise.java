@@ -9,7 +9,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -22,8 +24,8 @@ public class Topic_07_Textbox_TextArea_Exercise {
 	String projectPath = System.getProperty("user.dir");
 	
 	//Login page value
-	String username = "mngr342759";
-	String password = "yqarUjY";
+	String username;
+	String password;
 	
 	//Login page locator
 	By usernameTextbox = By.name("uid");
@@ -51,16 +53,16 @@ public class Topic_07_Textbox_TextArea_Exercise {
 	String editEmail = "thucEdit"+randomNumber()+"@gmail.com";
 	
 	//New and Edit Customer page locator
-	By customerNameTextbox = By.name("name");
-	By genderRadioButton = By.cssSelector("input[value='m']");
-	By DOBTextbox = By.name("dob");
-	By addressTextarea = By.name("addr");
-	By cityTextbox = By.name("city");
-	By stateTextbox = By.name("state");
-	By pinTextbox = By.name("pinno");
-	By mobilePhoneTextbox = By.name("telephoneno");
-	By emailTextbox = By.name("emailid");
-	By submitButton = By.name("sub");
+	By customerNameTextboxBy = By.name("name");
+	By genderRadioButtonBy = By.cssSelector("input[value='m']");
+	By DOBTextboxBy = By.name("dob");
+	By addressTextareaBy = By.name("addr");
+	By cityTextboxBy = By.name("city");
+	By stateTextboxBy = By.name("state");
+	By pinTextboxBy = By.name("pinno");
+	By mobilePhoneTextboxBy = By.name("telephoneno");
+	By emailTextboxBy = By.name("emailid");
+	By submitButtonBy = By.name("sub");
 
 
 	@BeforeClass
@@ -76,12 +78,22 @@ public class Topic_07_Textbox_TextArea_Exercise {
 		
 		// Step 1: Access page
 		driver.get("http://demo.guru99.com/v4/");
+		String loginURL = driver.getCurrentUrl();
 		
+		// Step 1.1: Get username and password
+		driver.findElement(By.linkText("here")).click();
+		driver.findElement(By.name("emailid")).sendKeys(email);
+		driver.findElement(By.name("btnLogin")).click();
+		username= driver.findElement(By.xpath("//td[text()='User ID :']//following-sibling::td")).getText();
+		password= driver.findElement(By.xpath("//td[text()='Password :']//following-sibling::td")).getText();
+				
 		// Step 2: Log in và verify homepage
+		driver.get(loginURL);
 		driver.findElement(usernameTextbox).sendKeys(username);
 		driver.findElement(passwordTextbox).sendKeys(password);
 		driver.findElement(loginButton).click();
 		assertEquals(driver.getCurrentUrl(),"http://demo.guru99.com/v4/manager/Managerhomepage.php");
+		assertTrue(driver.findElement(By.xpath("//marquee[text()=\"Welcome To Manager's Page of Guru99 Bank\"]")).isDisplayed());
 		assertTrue(driver.findElement(By.xpath("//td[contains(text(),'Manger Id')]")).getText().contains(username));
 				
 		
@@ -93,22 +105,26 @@ public class Topic_07_Textbox_TextArea_Exercise {
 		driver.findElement(By.linkText("New Customer")).click();
 		
 		// Step 4: Nhập giá trị của customer mới và click submit
-		driver.findElement(customerNameTextbox).sendKeys(customerName);
-		driver.findElement(genderRadioButton).click();
+		driver.findElement(customerNameTextboxBy).sendKeys(customerName);
+		driver.findElement(genderRadioButtonBy).click();
 		
+		WebElement DOBTextbox = driver.findElement(DOBTextboxBy);
+		JavascriptExecutor jExecutor = (JavascriptExecutor) driver;
+		jExecutor.executeScript("arguments[0].removeAttribute('type')", DOBTextbox);
+		sleepInSecond(3);
 		// For chrome
-		//driver.findElement(DOBTextbox).sendKeys("11051995");
+		driver.findElement(DOBTextboxBy).sendKeys("05/11/1995");
 		// For Firefox
-		driver.findElement(DOBTextbox).sendKeys("1995-05-11");
+		//driver.findElement(DOBTextboxBy).sendKeys("1995-05-11");
 		
-		driver.findElement(addressTextarea).sendKeys(address);
-		driver.findElement(cityTextbox).sendKeys(city);
-		driver.findElement(stateTextbox).sendKeys(state);
-		driver.findElement(pinTextbox).sendKeys(pin);
-		driver.findElement(mobilePhoneTextbox).sendKeys(mobile);
-		driver.findElement(emailTextbox).sendKeys(email);
+		driver.findElement(addressTextareaBy).sendKeys(address);
+		driver.findElement(cityTextboxBy).sendKeys(city);
+		driver.findElement(stateTextboxBy).sendKeys(state);
+		driver.findElement(pinTextboxBy).sendKeys(pin);
+		driver.findElement(mobilePhoneTextboxBy).sendKeys(mobile);
+		driver.findElement(emailTextboxBy).sendKeys(email);
 		driver.findElement(passwordTextbox).sendKeys(password);
-		driver.findElement(submitButton).click();
+		driver.findElement(submitButtonBy).click();
 		sleepInSecond(1);
 		
 		//Step 5: Check Customer đã được tạo thành công. Lưu lại Customer ID
@@ -136,31 +152,31 @@ public class Topic_07_Textbox_TextArea_Exercise {
 		driver.findElement(By.name("AccSubmit")).click();
 		
 		//Step 8: Verify các field bị disabled và giá trị của Customer Name và Address
-		assertFalse(driver.findElement(customerNameTextbox).isEnabled());
+		assertFalse(driver.findElement(customerNameTextboxBy).isEnabled());
 		assertFalse(driver.findElement(By.name("gender")).isEnabled());
-		assertFalse(driver.findElement(DOBTextbox).isEnabled());
-		assertEquals(driver.findElement(customerNameTextbox).getAttribute("value"),customerName);
-		assertEquals(driver.findElement(addressTextarea).getText(),address);
-		assertEquals(driver.findElement(cityTextbox).getAttribute("value"),city);
-		assertEquals(driver.findElement(stateTextbox).getAttribute("value"),state);
-		assertEquals(driver.findElement(pinTextbox).getAttribute("value"),pin);
-		assertEquals(driver.findElement(mobilePhoneTextbox).getAttribute("value"),mobile);
-		assertEquals(driver.findElement(emailTextbox).getAttribute("value"),email);
+		assertFalse(driver.findElement(DOBTextboxBy).isEnabled());
+		assertEquals(driver.findElement(customerNameTextboxBy).getAttribute("value"),customerName);
+		assertEquals(driver.findElement(addressTextareaBy).getText(),address);
+		assertEquals(driver.findElement(cityTextboxBy).getAttribute("value"),city);
+		assertEquals(driver.findElement(stateTextboxBy).getAttribute("value"),state);
+		assertEquals(driver.findElement(pinTextboxBy).getAttribute("value"),pin);
+		assertEquals(driver.findElement(mobilePhoneTextboxBy).getAttribute("value"),mobile);
+		assertEquals(driver.findElement(emailTextboxBy).getAttribute("value"),email);
 		
 		//Step 9: Edit customer với giá trị mới và set
-		driver.findElement(addressTextarea).clear();
-		driver.findElement(addressTextarea).sendKeys(editAddress);
-		driver.findElement(cityTextbox).clear();
-		driver.findElement(cityTextbox).sendKeys(editCity);
-		driver.findElement(stateTextbox).clear();
-		driver.findElement(stateTextbox).sendKeys(editState);
-		driver.findElement(pinTextbox).clear();
-		driver.findElement(pinTextbox).sendKeys(editPin);
-		driver.findElement(mobilePhoneTextbox).clear();
-		driver.findElement(mobilePhoneTextbox).sendKeys(editMobile);
-		driver.findElement(emailTextbox).clear();
-		driver.findElement(emailTextbox).sendKeys(editEmail);
-		driver.findElement(submitButton).click();
+		driver.findElement(addressTextareaBy).clear();
+		driver.findElement(addressTextareaBy).sendKeys(editAddress);
+		driver.findElement(cityTextboxBy).clear();
+		driver.findElement(cityTextboxBy).sendKeys(editCity);
+		driver.findElement(stateTextboxBy).clear();
+		driver.findElement(stateTextboxBy).sendKeys(editState);
+		driver.findElement(pinTextboxBy).clear();
+		driver.findElement(pinTextboxBy).sendKeys(editPin);
+		driver.findElement(mobilePhoneTextboxBy).clear();
+		driver.findElement(mobilePhoneTextboxBy).sendKeys(editMobile);
+		driver.findElement(emailTextboxBy).clear();
+		driver.findElement(emailTextboxBy).sendKeys(editEmail);
+		driver.findElement(submitButtonBy).click();
 		sleepInSecond(1);
 		
 		//Step 10: Check Customer đã được edit thành công.
