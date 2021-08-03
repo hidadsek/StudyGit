@@ -36,7 +36,7 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
-
+	@Test
 	public void TC_01_VerifyCountryHTMLDropdownlist() {
 		// Initial elements
 		// Page's input value
@@ -60,7 +60,7 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		selectCountry.selectByValue(country);
 		
 		//Kiểm tra giá trị đã được chọn
-		assertEquals(driver.findElement(countryLoc).getAttribute("value"), country);
+		assertEquals(selectCountry.getFirstSelectedOption().getText(), country);
 		
 		//click search
 		searchButton.click();
@@ -87,7 +87,7 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void TC_02_VerifyDOByHTMLDropdownlist() {
 		// Initial elements
 		//Page value
@@ -102,9 +102,9 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		String year = "1995";
 		
 		//Page Element
-		By dayLoc = By.name("DateOfBirthDay");
-		By monthLoc = By.name("DateOfBirthMonth");
-		By yearLoc = By.name("DateOfBirthYear");
+		By dayDropdownBy = By.name("DateOfBirthDay");
+		By monthDropdownBy = By.name("DateOfBirthMonth");
+		By yearDropdownBy = By.name("DateOfBirthYear");
 		
 		//Truy cập trang
 		driver.get("https://demo.nopcommerce.com/register");
@@ -121,9 +121,9 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		WebElement passwordTextbox = driver.findElement(By.id("Password"));
 		WebElement confirmPasswordTextbox = driver.findElement(By.id("ConfirmPassword"));
 		WebElement registerButton = driver.findElement(By.id("register-button"));
-		Select selectDay = new Select(driver.findElement(dayLoc));
-		Select selectMonth = new Select(driver.findElement(monthLoc));
-		Select selectYear = new Select(driver.findElement(yearLoc));
+		Select selectDay = new Select(driver.findElement(dayDropdownBy));
+		Select selectMonth = new Select(driver.findElement(monthDropdownBy));
+		Select selectYear = new Select(driver.findElement(yearDropdownBy));
 		
 		gendereRadioButton.click();
 		inputText(firstNameTextbox, firstName);
@@ -134,9 +134,9 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		inputText(confirmPasswordTextbox, confirmPassword);
 		
 		//Nhập ngày, tháng, năm
-		selectDay.selectByValue(day);
+		selectDay.selectByVisibleText(day);
 		selectMonth.selectByValue(month);
-		selectYear.selectByValue(year);
+		selectYear.selectByVisibleText(year);
 		
 		//Vevify số ngày, tháng, năm trong dropdownlist
 		List<WebElement> dayList = selectDay.getOptions();
@@ -158,9 +158,9 @@ public class Topic_07_HTML_DropdownList_Exercise {
 		driver.findElement(By.linkText("My account")).click();
 		
 		//Verify value của field DOB
-		assertEquals(driver.findElement(dayLoc).getAttribute("value"), day);
-		assertEquals(driver.findElement(monthLoc).getAttribute("value"), month);
-		assertEquals(driver.findElement(yearLoc).getAttribute("value"), year);
+		assertEquals(driver.findElement(dayDropdownBy).getAttribute("value"), day);
+		assertEquals(driver.findElement(monthDropdownBy).getAttribute("value"), month);
+		assertEquals(driver.findElement(yearDropdownBy).getAttribute("value"), year);
 	}
 
 	@AfterClass
