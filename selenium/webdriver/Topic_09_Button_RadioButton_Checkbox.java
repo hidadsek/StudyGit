@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,7 +41,7 @@ public class Topic_09_Button_RadioButton_Checkbox {
 		driver.manage().window().maximize();
 	}
 
-	//@Test
+	@Test
 	public void TC_01_CheckButton() {
 		String username = "thucTest"+randomNumber()+"@gmail.com";
 		String password = "Test@123";
@@ -69,6 +71,15 @@ public class Topic_09_Button_RadioButton_Checkbox {
 		assertEquals(driver.findElement(
 				By.xpath("//div[@class='popup-login-content']//label[text()='Mật khẩu']//following-sibling::div[@class='fhs-input-alert']")).getText(),
 				"Thông tin này không thể để trống");
+		
+		// Verify login button with background color = RED
+		String rgbaColor = driver.findElement(dangNhapPopupButtonBy).getCssValue("background-color");
+		System.out.println("RGBA = " + rgbaColor);
+
+		String hexaColor = Color.fromString(rgbaColor).asHex().toUpperCase();
+		System.out.println("Hexa = " + hexaColor);
+
+		assertEquals(hexaColor, "#C92127");
 		}
 
 	//@Test
@@ -122,7 +133,7 @@ public class Topic_09_Button_RadioButton_Checkbox {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void TC_04_CheckSpecialCheckBoxAndRadioButton() {
 		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
 		String city = "Hà Nội";

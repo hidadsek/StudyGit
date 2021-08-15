@@ -58,7 +58,7 @@ public class Topic_08_Custom_DropdownList_Exercize {
 		assertEquals(driver.findElement(By.id("number")).getAttribute("value"),number);
 	}
 
-	@Test
+	//@Test
 	public void TC_02_ReactJS() {
 		// Open website
 		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection/");
@@ -72,7 +72,7 @@ public class Topic_08_Custom_DropdownList_Exercize {
 		assertEquals(listDropdownList.getAttribute("innerText"),name);
 	}
 
-	@Test
+	//@Test
 	public void TC_03_VueJS() {
 		// Open website
 		driver.get("https://mikerodham.github.io/vue-dropdowns/");
@@ -84,6 +84,20 @@ public class Topic_08_Custom_DropdownList_Exercize {
 		selectItemInDropdownlist(itemDropdownList, listLoc, item);
 		// Assert value
 		assertEquals(itemDropdownList.getAttribute("innerText"),item);
+	}
+	
+	@Test
+	public void TC_04_Angular() {
+		// Open website
+		driver.get("https://ej2.syncfusion.com/angular/demos/?_ga=2.262049992.437420821.1575083417-524628264.1575083417#/material/drop-down-list/data-binding");
+		// Initial values
+		WebElement itemDropdownList = driver.findElement(By.cssSelector("span[aria-owns='games_options']"));
+		By listLoc = By.cssSelector("#games_options>li");
+		String item = "Football";
+		// Click value
+		selectItemInDropdownlist(itemDropdownList, listLoc, item);
+		// Assert value
+		assertEquals(itemDropdownList.getAttribute("textContent"),item);
 	}
 
 	@AfterClass
