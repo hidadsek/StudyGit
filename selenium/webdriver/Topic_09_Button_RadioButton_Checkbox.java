@@ -41,7 +41,7 @@ public class Topic_09_Button_RadioButton_Checkbox {
 		driver.manage().window().maximize();
 	}
 
-	@Test
+	//@Test
 	public void TC_01_CheckButton() {
 		String username = "thucTest"+randomNumber()+"@gmail.com";
 		String password = "Test@123";
@@ -148,6 +148,13 @@ public class Topic_09_Button_RadioButton_Checkbox {
 			System.out.println(cityCheckbox.getAttribute("class"));
 			assertTrue(cityCheckbox.getAttribute("class").contains("isChecked"));
 		}
+	}
+	
+	@Test
+	public void TC_07_Live_Guru() {
+		driver.get("https://live.demoguru99.com/index.php/backendlogin");
+		//user01/guru99com
+		
 	}
 
 	@AfterClass
