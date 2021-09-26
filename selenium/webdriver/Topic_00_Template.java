@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -32,7 +31,6 @@ public class Topic_00_Template {
 		// Mở application lên (AUT / SUT)
 		driver.get("http://live.demoguru99.com/index.php/customer/account/login/");	
 		driver.manage().window().maximize();
-		 
 	}
 	
 	// step

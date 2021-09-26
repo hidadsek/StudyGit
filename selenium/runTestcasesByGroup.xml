@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Run Group suite">
+  <test name="Run by groups">
+  	<groups>
+  		<run>
+  			<include name = "mobile"/>
+  			<include name = "integration"/>
+  			<exclude name = "regression"/>
+  		</run>
+  	</groups>
+  	<classes>
+      <class name="testNG.Topic_01_Mobile"/>
+      <class name="testNG.Topic_01_Integration"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

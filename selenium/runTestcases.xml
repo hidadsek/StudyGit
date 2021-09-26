@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Run class suite">
+  <test name="Run by class">
+    <classes>
+      <class name="testNG.Topic_01_Annotations"/>
+      <class name="webdriver.Topic_14_Upload_File"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Run class suite">
+	<listeners>
+		<listener class-name ="listenerConfig.TestListener"/>
+	</listeners>
+	
+  <test name="Run by class">
+    <classes>
+      <class name="testNG.Topic_14_TestListener"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
