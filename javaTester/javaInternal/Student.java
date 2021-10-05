@@ -1,4 +1,4 @@
-package internal;
+package javaInternal;
 
 public class Student {
 
