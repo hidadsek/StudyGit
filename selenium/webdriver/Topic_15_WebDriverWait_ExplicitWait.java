@@ -9,7 +9,6 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -52,7 +51,7 @@ public class Topic_15_WebDriverWait_ExplicitWait {
 	public void TC_06_ExplicitWait() {
 		By dateLabelBy = By.cssSelector("fieldset span.label");
 		driver.get("https://demos.telerik.com/aspnet-ajax/ajaxloadingpanel/functionality/explicit-show-hide/defaultcs.aspx");
-		WebElement dateTimePicker = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.calendarContainer")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.calendarContainer")));
 		WebElement dateLabel = driver.findElement(dateLabelBy);
 		assertEquals(dateLabel.getText(),"No Selected Dates to display.");
 		driver.findElement(By.xpath("//a[text()='10']")).click();

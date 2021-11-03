@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -149,6 +150,19 @@ public class Topic_15_WebDriverWait_Advanced {
 		System.out.println("Start: "+getDateTimeNow());
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish>h4")));
 		assertEquals(driver.findElement(By.cssSelector("#finish>h4")).getText(),"Hello World!");
+		System.out.println("End: "+getDateTimeNow());
+	}
+	
+	@Test
+	public void TC_05_ExplicitWait_Multiple_Visible_3s() {
+		wait = new WebDriverWait(driver,3);
+		driver.get("https://automationfc.github.io/dynamic-loading/");
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		driver.findElement(By.cssSelector("#start>button")).click();
+		System.out.println("Start: "+getDateTimeNow());
+		List<WebElement> successMsg_1 = driver.findElements(By.cssSelector("#finish>h4"));
+		//List<WebElement> successMsg = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#finish>h4")));
+		assertTrue(successMsg_1.size()==0);
 		System.out.println("End: "+getDateTimeNow());
 	}
 	

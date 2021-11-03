@@ -153,8 +153,7 @@ public class Topic_11_Window_Tab {
 			}
 		}
 	}
-	
-	
+		
 	public void switchToWindowByTitle(String windowTitle) {
 		//get ID của tất cả tab/Window đang có
 		Set<String> allIDs = driver.getWindowHandles();
