@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import pageObjects.RegisterPageObjext;
 
-public class TC_01_Register_Login {
+public class TC_Register {
 	WebDriver driver;
 	RegisterPageObjext registerPage;
 	String emailAddress;
