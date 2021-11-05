@@ -61,7 +61,6 @@ public class TC_Login {
 		registerPage.clickRegister(driver);
 		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
-		System.out.println(emailAddress);
 		registerPage.clickElement(driver, "//a[text()='Log out']");
 		registerPage.sleepInSecond(1);
 	}
