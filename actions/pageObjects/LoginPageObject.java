@@ -6,7 +6,7 @@ import commons.BasePage;
 import pageUI.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
-	LoginPageUI loginPageUI = new LoginPageUI();
+	public LoginPageUI loginPageUI = new LoginPageUI();
 	
 	public void inputEmail(WebDriver driver, String email) {
 		waitForElementVisible(driver, loginPageUI.emailTextboxBy);

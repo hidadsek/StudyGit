@@ -5,7 +5,7 @@ import commons.BasePage;
 import pageUI.CustomerInfoPageUI;
 
 public class CustomerInfoPageObject extends BasePage {
-	CustomerInfoPageUI customerInfoPageUI = new CustomerInfoPageUI();
+	public CustomerInfoPageUI customerInfoPageUI = new CustomerInfoPageUI();
 	
 	public void selectMaleGender(WebDriver driver) {
 		waitForElementClickable(driver, customerInfoPageUI.maleRadioButtonBy);

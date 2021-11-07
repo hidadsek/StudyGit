@@ -6,7 +6,7 @@ import commons.BasePage;
 import pageUI.RegisterPageUI;
 
 public class RegisterPageObjext extends BasePage {
-	RegisterPageUI registerPageUI = new RegisterPageUI();
+	public RegisterPageUI registerPageUI = new RegisterPageUI();
 		
 	public void selectMaleGender(WebDriver driver) {
 		waitForElementClickable(driver, registerPageUI.maleRadioButtonBy);

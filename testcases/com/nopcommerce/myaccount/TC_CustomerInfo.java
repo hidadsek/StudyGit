@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import pageObjects.CustomerInfoPageObject;
 import pageObjects.RegisterPageObjext;
-import pageUI.CustomerInfoPageUI;
 
 public class TC_CustomerInfo {
 	WebDriver driver;
@@ -65,7 +64,6 @@ public class TC_CustomerInfo {
 		registerPage.inputPassword(driver, password);
 		registerPage.inputConfirmPassword(driver, confirmPassword);
 		registerPage.clickRegister(driver);
-		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
 		registerPage.sleepInSecond(1);
@@ -80,7 +78,6 @@ public class TC_CustomerInfo {
 		year="1990";
 		emailAddress = "automationfc.vn@gmail.com";
 		company ="Automation FC";
-		CustomerInfoPageUI customerInfoPageUI = new CustomerInfoPageUI();
 		
 		customerInfoPage.selectFemaleGender(driver);
 		customerInfoPage.inputFirstName(driver, firstName);
@@ -92,14 +89,14 @@ public class TC_CustomerInfo {
 		customerInfoPage.inputCompany(driver, company);
 		customerInfoPage.clickSave(driver);
 		
-		assertTrue(customerInfoPage.isElementSelected(driver, customerInfoPageUI.femaleRadioButtonBy));
-		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPageUI.firstNameTextboxBy, "value"),firstName);
-		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPageUI.lastNameTextboxBy, "value"),lastName);
-		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPageUI.dayDropdownListBy),day);
-		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPageUI.monthDropdownListBy),month);
-		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPageUI.yearDropdownListBy),year);
-		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPageUI.emailTextboxBy, "value"),emailAddress);
-		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPageUI.companyTextboxBy, "value"),company);
+		assertTrue(customerInfoPage.isElementSelected(driver, customerInfoPage.customerInfoPageUI.femaleRadioButtonBy));
+		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPage.customerInfoPageUI.firstNameTextboxBy, "value"),firstName);
+		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPage.customerInfoPageUI.lastNameTextboxBy, "value"),lastName);
+		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPage.customerInfoPageUI.dayDropdownListBy),day);
+		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPage.customerInfoPageUI.monthDropdownListBy),month);
+		assertEquals(customerInfoPage.getItemInDefaultDropdown(driver, customerInfoPage.customerInfoPageUI.yearDropdownListBy),year);
+		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPage.customerInfoPageUI.emailTextboxBy, "value"),emailAddress);
+		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPage.customerInfoPageUI.companyTextboxBy, "value"),company);
 		
 	}
 	
