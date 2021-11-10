@@ -8,6 +8,11 @@ import pageUI.ChangePasswordPageUI;
 public class ChangePasswordPageObject extends BasePage {
 	public ChangePasswordPageUI changePasswordPageUI = new ChangePasswordPageUI();
 	
+	public void openChangePasswordPage (WebDriver driver) {
+		waitForElementClickable(driver, changePasswordPageUI.changePasswordLinkBy);
+		clickElement(driver, changePasswordPageUI.changePasswordLinkBy);
+	}
+	
 	public void inputOldPassword(WebDriver driver, String password) {
 		waitForElementVisible(driver, changePasswordPageUI.oldPasswordTextboxBy);
 		inputIntoElement(driver, changePasswordPageUI.oldPasswordTextboxBy, password);

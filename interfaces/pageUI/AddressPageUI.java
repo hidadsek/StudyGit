@@ -1,6 +1,7 @@
 package pageUI;
 
 public class AddressPageUI {
+	public String addressLinkBy = "//ul[@class='list']//a[text()='Addresses']";
 	public String addButtonBy = "//div[@class='add-button']/button";
 	public String firstNameTextboxBy = "//input[@id='Address_FirstName']";
 	public String lastNameTextboxBy = "//input[@id='Address_LastName']";

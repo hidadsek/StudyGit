@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import pageObjects.CustomerInfoPageObject;
 import pageObjects.RegisterPageObjext;
 
-public class TC_CustomerInfo {
+public class TC_Update_Customer_Info {
 	WebDriver driver;
 	CustomerInfoPageObject customerInfoPage;
 	String firstName;
@@ -70,7 +70,7 @@ public class TC_CustomerInfo {
 	}
 	
 	@Test
-	public void TC_Update_Customer_Info() {
+	public void TC_01_Update_Customer_Info() {
 		firstName = "Automation";
 		lastName = "FC";
 		day="1";

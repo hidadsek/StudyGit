@@ -1,6 +1,7 @@
 package pageUI;
 
 public class CustomerInfoPageUI {
+	public String customerInfoLinkBy = "//ul[@class='list']//a[text()='Customer info']";
 	public String maleRadioButtonBy ="//input[@id='gender-male']";
 	public String femaleRadioButtonBy = "//input[@id='gender-female']";
 	public String firstNameTextboxBy = "//input[@id='FirstName']";

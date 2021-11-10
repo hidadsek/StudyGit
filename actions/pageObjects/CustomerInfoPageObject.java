@@ -7,6 +7,11 @@ import pageUI.CustomerInfoPageUI;
 public class CustomerInfoPageObject extends BasePage {
 	public CustomerInfoPageUI customerInfoPageUI = new CustomerInfoPageUI();
 	
+	public void openCustomerInfoPage(WebDriver driver) {
+		waitForElementClickable(driver, customerInfoPageUI.customerInfoLinkBy);
+		clickElement(driver,customerInfoPageUI.customerInfoLinkBy);
+	}
+	
 	public void selectMaleGender(WebDriver driver) {
 		waitForElementClickable(driver, customerInfoPageUI.maleRadioButtonBy);
 		clickElement(driver,customerInfoPageUI.maleRadioButtonBy);

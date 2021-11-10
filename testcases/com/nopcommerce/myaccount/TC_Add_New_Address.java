@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import pageObjects.AddressPageObject;
 import pageObjects.RegisterPageObjext;
 
-public class TC_AddressPage {
+public class TC_Add_New_Address {
 	WebDriver driver;
 	AddressPageObject addressPage;
 	
@@ -59,8 +59,9 @@ public class TC_AddressPage {
 		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
-		registerPage.clickElement(driver, "//ul[@class='list']//a[text()='Addresses']");
-		registerPage.sleepInSecond(1);
+		
+		addressPage.openAddressPage(driver);
+		addressPage.sleepInSecond(1);
 	}
 	
 	@Test

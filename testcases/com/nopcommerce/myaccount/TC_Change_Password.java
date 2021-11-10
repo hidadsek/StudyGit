@@ -17,7 +17,7 @@ import pageObjects.ChangePasswordPageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObjext;
 
-public class TC_ChangePassword {
+public class TC_Change_Password {
 	WebDriver driver;
 	ChangePasswordPageObject changePasswordPage;
 	String password;
@@ -63,12 +63,12 @@ public class TC_ChangePassword {
 		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
-		registerPage.clickElement(driver, "//ul[@class='list']//a[text()='Change password']");
-		registerPage.sleepInSecond(1);
+		changePasswordPage.openChangePasswordPage(driver);
+		changePasswordPage.sleepInSecond(1);
 	}
 	
 	@Test
-	public void TC_Change_Password() {
+	public void TC_01_Change_Password() {
 		String newPassword = "123457";
 		
 		changePasswordPage.inputOldPassword(driver, password);

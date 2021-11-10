@@ -8,6 +8,11 @@ import pageUI.AddressPageUI;
 public class AddressPageObject extends BasePage {
 	public AddressPageUI addressPageUI = new AddressPageUI();
 	
+	public void openAddressPage(WebDriver driver) {
+		waitForElementClickable(driver, addressPageUI.addressLinkBy);
+		clickElement(driver, addressPageUI.addressLinkBy);
+	}
+	
 	public void clickAddNewButton(WebDriver driver) {
 		waitForElementClickable(driver, addressPageUI.addButtonBy);
 		clickElement(driver, addressPageUI.addButtonBy);
