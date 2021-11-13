@@ -6,109 +6,114 @@ import commons.BasePage;
 import pageUI.RegisterPageUI;
 
 public class RegisterPageObjext extends BasePage {
-		
-	public void selectMaleGender(WebDriver driver) {
+	private WebDriver driver;
+	
+	public RegisterPageObjext(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void selectMaleGender() {
 		waitForElementClickable(driver, RegisterPageUI.MALE_RADIO_BUTTON);
 		clickElement(driver,RegisterPageUI.MALE_RADIO_BUTTON);
 	}
 	
-	public void selectFemaleGender(WebDriver driver) {
+	public void selectFemaleGender() {
 		waitForElementClickable(driver, RegisterPageUI.FEMALE_RADIO_BUTTON);
 		clickElement(driver,RegisterPageUI.FEMALE_RADIO_BUTTON);
 	}
 	
-	public void inputFirstName(WebDriver driver, String firstName) {
+	public void inputFirstName(String firstName) {
 		waitForElementVisible(driver, RegisterPageUI.FIRST_NAME_TEXTBOX);
 		inputIntoElement(driver,RegisterPageUI.FIRST_NAME_TEXTBOX, firstName);
 	}
 	
-	public void inputLastName(WebDriver driver, String lastName) {
+	public void inputLastName(String lastName) {
 		waitForElementVisible(driver, RegisterPageUI.LAST_NAME_TEXTBOX);
 		inputIntoElement(driver,RegisterPageUI.LAST_NAME_TEXTBOX, lastName);
 	}
 	
-	public void selectDay(WebDriver driver, String day) {
+	public void selectDay(String day) {
 		waitForElementVisible(driver, RegisterPageUI.DAY_DROPDOWN);
 		selectItemInDefaultDropdown(driver,RegisterPageUI.DAY_DROPDOWN, day);
 	}
 	
-	public void selectMonth(WebDriver driver, String month) {
+	public void selectMonth(String month) {
 		waitForElementVisible(driver, RegisterPageUI.MONTH_DROPDOWN);
 		selectItemInDefaultDropdown(driver,RegisterPageUI.MONTH_DROPDOWN, month);
 	}
 	
-	public void selectYear(WebDriver driver, String year) {
+	public void selectYear(String year) {
 		waitForElementVisible(driver, RegisterPageUI.YEAR_DROPDOWN);
 		selectItemInDefaultDropdown(driver,RegisterPageUI.YEAR_DROPDOWN, year);
 	}
 	
-	public void inputEmail(WebDriver driver, String email) {
+	public void inputEmail(String email) {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_TEXTBOX);
 		inputIntoElement(driver,RegisterPageUI.EMAIL_TEXTBOX, email);
 	}
 	
-	public void inputCompany(WebDriver driver, String company) {
+	public void inputCompany(String company) {
 		waitForElementVisible(driver, RegisterPageUI.COMPANY_TEXTBOX);
 		inputIntoElement(driver,RegisterPageUI.COMPANY_TEXTBOX, company);
 	}
 	
-	public void selectNewsletter(WebDriver driver) {
+	public void selectNewsletter() {
 		waitForElementClickable(driver, RegisterPageUI.NEWSLETTER_CHECKBOX);
 		checkToDefaultCheckboxRadio(driver, RegisterPageUI.NEWSLETTER_CHECKBOX);
 	}
 	
-	public void unSelectNewsletter(WebDriver driver) {
+	public void unSelectNewsletter() {
 		waitForElementClickable(driver, RegisterPageUI.NEWSLETTER_CHECKBOX);
 		uncheckToDefaultCheckboxRadio(driver, RegisterPageUI.NEWSLETTER_CHECKBOX);
 	}
 	
-	public void inputPassword(WebDriver driver, String password) {
+	public void inputPassword(String password) {
 		waitForElementVisible(driver, RegisterPageUI.PASSWORD_TEXTBOX);
 		inputIntoElement(driver, RegisterPageUI.PASSWORD_TEXTBOX, password);
 	}
 	
-	public void inputConfirmPassword(WebDriver driver, String password) {
+	public void inputConfirmPassword(String password) {
 		waitForElementVisible(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX);
 		inputIntoElement(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, password);
 	}
 
-	public void clickRegisterButton(WebDriver driver) {
+	public void clickRegisterButton() {
 		waitForElementVisible(driver, RegisterPageUI.REGISTER_BUTTON);
 		clickElement(driver, RegisterPageUI.REGISTER_BUTTON);
 	}
 	
-	public String getFirstNameErrorMessage(WebDriver driver) {
+	public String getFirstNameErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.FIRST_NAME_ERROR_MESSAGE);
 		return getElementText(driver, RegisterPageUI.FIRST_NAME_ERROR_MESSAGE);
 	}
 	
 	
-	public String getLastNameErrorMessage(WebDriver driver) {
+	public String getLastNameErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.LAST_NAME_ERROR_MESSAGE);
 		return getElementText(driver, RegisterPageUI.LAST_NAME_ERROR_MESSAGE);
 	}
 	
-	public String getEmailErrorMessage(WebDriver driver) {
+	public String getEmailErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_ERROR_MESSAGE);
 		return getElementText(driver, RegisterPageUI.EMAIL_ERROR_MESSAGE);
 	}
 	
-	public String getPasswordErrorMessage(WebDriver driver) {
+	public String getPasswordErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.PASSWORD_ERROR_MESSAGE);
 		return getElementText(driver, RegisterPageUI.PASSWORD_ERROR_MESSAGE);
 	}
 	
-	public String getConfirmPasswordErrorMessage(WebDriver driver) {
+	public String getConfirmPasswordErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
 		return getElementText(driver, RegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
 	}
 	
-	public String getExistingEmailErrorMessage(WebDriver driver) {
+	public String getExistingEmailErrorMessage() {
 		waitForElementVisible(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE);
 		return getElementAttribute(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE,"textContent");
 	}
 	
-	public String getSuccessMessage(WebDriver driver) {
+	public String getSuccessMessage() {
 		waitForElementVisible(driver, RegisterPageUI.SUCCESS_MESSAGE);
 		return getElementText(driver, RegisterPageUI.SUCCESS_MESSAGE);
 	}

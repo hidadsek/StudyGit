@@ -36,7 +36,7 @@ public class TC_Change_Password {
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext();
+		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
@@ -82,17 +82,17 @@ public class TC_Change_Password {
 		changePasswordPage.sleepInSecond(1);
 		changePasswordPage.clickElement(driver, "//div[@class='header-links']//a[text()='Log out']");
 		
-		LoginPageObject loginPage = new LoginPageObject();
+		LoginPageObject loginPage = new LoginPageObject(driver);
 		loginPage.clickElement(driver, "//div[@class='header-links']//a[text()='Log in']");
-		loginPage.inputEmail(driver, emailAddress);
-		loginPage.inputPassword(driver, password);
-		loginPage.clickLogin(driver);
-		assertTrue(loginPage.getElementAttribute(driver, "//div[contains(@class,'validation-summary-errors')]","innerText")
-				.contains("Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect"));
+		loginPage.inputEmail(emailAddress);
+		loginPage.inputPassword(password);
+		loginPage.clickLoginButton();
+		assertEquals(loginPage.getLoginErrorMessage(),
+				"Login was unsuccessful. Please correct the errors and try again."+"\n"+"The credentials provided are incorrect");
 		
-		loginPage.inputEmail(driver, emailAddress);
-		loginPage.inputPassword(driver, newPassword);
-		loginPage.clickLogin(driver);
+		loginPage.inputEmail(emailAddress);
+		loginPage.inputPassword(newPassword);
+		loginPage.clickLoginButton();
 		loginPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
 		assertTrue(loginPage.getElementText(driver, "//div[@class ='page-title']/h1")
 				.contains("My account - Customer info"));

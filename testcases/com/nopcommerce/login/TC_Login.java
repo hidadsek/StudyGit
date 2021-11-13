@@ -13,12 +13,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObjext;
 
 public class TC_Login {
 	WebDriver driver;
 	LoginPageObject loginPage;
+	HomePageObject homePage;
 	String emailAddress;
 	String password;
 	
@@ -28,14 +30,16 @@ public class TC_Login {
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
-		loginPage = new LoginPageObject();
+		loginPage = new LoginPageObject(driver);
+		homePage = new HomePageObject(driver);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
+		homePage.openBrowser(driver,"https://demo.nopcommerce.com");
 	}
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext();
+		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
@@ -47,82 +51,77 @@ public class TC_Login {
 		String month = "May";
 		String year = "1995";
 		
-		registerPage.openBrowser(driver,"https://demo.nopcommerce.com/register?returnUrl=%2F");
-		registerPage.selectMaleGender(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.selectDay(driver, day);
-		registerPage.selectMonth(driver, month);
-		registerPage.selectYear(driver, year);
-		registerPage.inputCompany(driver, company);
-		registerPage.inputEmail(driver, emailAddress);
-		registerPage.inputPassword(driver, password);
-		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegisterButton(driver);
-		
-		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
-		registerPage.clickElement(driver, "//a[text()='Log out']");
-		registerPage.sleepInSecond(1);
+		homePage.clickRegisterLink();
+		registerPage.selectMaleGender();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.selectDay(day);
+		registerPage.selectMonth(month);
+		registerPage.selectYear(year);
+		registerPage.inputCompany (company);
+		registerPage.inputEmail(emailAddress);
+		registerPage.inputPassword(password);
+		registerPage.inputConfirmPassword(confirmPassword);
+		registerPage.clickRegisterButton();
+		homePage.clickLogOutLink();
 	}
 	
 	@Test
 	public void TC_01_Login_Empty() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.clickLogin(driver);
+		homePage.clickLogInLink();
+		loginPage.clickLoginButton();
 		
-		assertEquals(loginPage.getElementText(driver, "//span[@id='Email-error']"), "Please enter your email");
+		assertEquals(loginPage.getEmailErrorMessage(), "Please enter your email");
 	}
 	
 	@Test
 	public void TC_02_Login_Invalid_Email() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.inputEmail(driver, "Test");
-		loginPage.clickLogin(driver);
+		homePage.clickLogInLink();
+		loginPage.inputEmail("Test");
+		loginPage.clickLoginButton();
 		
-		assertEquals(loginPage.getElementText(driver, "//span[@id='Email-error']"), "Wrong email");
+		assertEquals(loginPage.getEmailErrorMessage(), "Wrong email");
 	}
 	
 	@Test
 	public void TC_03_Login_Not_Registered_Email() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.inputEmail(driver, "Testing123@yopmail.com");
-		loginPage.clickLogin(driver);
+		homePage.clickLogInLink();
+		loginPage.inputEmail("Testing123@yopmail.com");
+		loginPage.clickLoginButton();
 		
-		assertTrue(loginPage.getElementAttribute(driver, "//div[contains(@class,'validation-summary-errors')]","textContent")
-				.contains("Login was unsuccessful. Please correct the errors and try again.No customer account found"));
+		assertEquals(loginPage.getLoginErrorMessage(),
+				"Login was unsuccessful. Please correct the errors and try again."+"\n"+"No customer account found");
 	}
 	
 	@Test
 	public void TC_04_Login_With_Empty_Password() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.inputEmail(driver, emailAddress);
-		loginPage.clickLogin(driver);
-		System.out.println(loginPage.getElementAttribute(driver, "//div[contains(@class,'validation-summary-errors')]","textContent"));
-		assertTrue(loginPage.getElementAttribute(driver, "//div[contains(@class,'validation-summary-errors')]","innerText")
-				.contains("Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect"));	
+		homePage.clickLogInLink();
+		loginPage.inputEmail(emailAddress);
+		loginPage.clickLoginButton();
+		assertEquals(loginPage.getLoginErrorMessage(),
+				"Login was unsuccessful. Please correct the errors and try again."+"\n"+"The credentials provided are incorrect");	
 	}
 	
 	@Test
 	public void TC_05_Login_With_Wrong_Password() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.inputEmail(driver, emailAddress);
-		loginPage.inputPassword(driver, "123457");
-		loginPage.clickLogin(driver);
+		homePage.clickLogInLink();
+		loginPage.inputEmail(emailAddress);
+		loginPage.inputPassword("123457");
+		loginPage.clickLoginButton();
 		
-		assertTrue(loginPage.getElementAttribute(driver, "//div[contains(@class,'validation-summary-errors')]","innerText")
-				.contains("Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect"));
+		assertEquals(loginPage.getLoginErrorMessage(),
+				"Login was unsuccessful. Please correct the errors and try again."+"\n"+"The credentials provided are incorrect");
 	}
 	
 	@Test
 	public void TC_06_Login_Successfully() {
-		loginPage.openBrowser(driver, "https://demo.nopcommerce.com/login?returnUrl=%2F");
-		loginPage.inputEmail(driver, emailAddress);
-		loginPage.inputPassword(driver, password);
-		loginPage.clickLogin(driver);
+		homePage.clickLogInLink();
+		loginPage.inputEmail(emailAddress);
+		loginPage.inputPassword(password);
+		loginPage.clickLoginButton();
 		
-		loginPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
-		assertTrue(loginPage.getElementText(driver, "//div[@class ='page-title']/h1")
-				.contains("My account - Customer info"));
+		homePage.clickMyAccountLink();
+		assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 	
 	@AfterClass

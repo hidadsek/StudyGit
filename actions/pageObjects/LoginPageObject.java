@@ -6,20 +6,34 @@ import commons.BasePage;
 import pageUI.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
-	public LoginPageUI loginPageUI = new LoginPageUI();
+	private WebDriver driver;
 	
-	public void inputEmail(WebDriver driver, String email) {
-		waitForElementVisible(driver, loginPageUI.emailTextboxBy);
-		inputIntoElement(driver, loginPageUI.emailTextboxBy, email);
+	public LoginPageObject(WebDriver driver) {
+		this.driver = driver;
 	}
 	
-	public void inputPassword(WebDriver driver, String password) {
-		waitForElementVisible(driver, loginPageUI.passwordTextboxBy);
-		inputIntoElement(driver, loginPageUI.passwordTextboxBy, password);
+	public void inputEmail(String email) {
+		waitForElementVisible(driver, LoginPageUI.EMAIL_TEXTBOX);
+		inputIntoElement(driver, LoginPageUI.EMAIL_TEXTBOX, email);
 	}
 	
-	public void clickLogin(WebDriver driver) {
-		waitForElementClickable(driver, loginPageUI.loginButtonBy);
-		clickElement(driver, loginPageUI.loginButtonBy);
+	public void inputPassword(String password) {
+		waitForElementVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
+		inputIntoElement(driver, LoginPageUI.PASSWORD_TEXTBOX, password);
+	}
+	
+	public void clickLoginButton() {
+		waitForElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
+		clickElement(driver, LoginPageUI.LOGIN_BUTTON);
+	}
+	
+	public String getEmailErrorMessage() {
+		waitForElementVisible(driver, LoginPageUI.EMAIL_ERROR_MESSAGE);
+		return getElementText(driver, LoginPageUI.EMAIL_ERROR_MESSAGE);
+	}
+	
+	public String getLoginErrorMessage() {
+		waitForElementVisible(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
+		return getElementText(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
 	}
 }

@@ -35,95 +35,95 @@ public class TC_Register {
 	public void beforeClass() {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
-		homePage = new HomePageObject();
-		registerPage = new RegisterPageObjext();
+		homePage = new HomePageObject(driver);
+		registerPage = new RegisterPageObjext(driver);
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		registerPage.openBrowser(driver,"https://demo.nopcommerce.com");
+		homePage.openBrowser(driver,"https://demo.nopcommerce.com");
 	}
 	
 	@Test
 	public void TC_01_Register_Empty_Data() {
-		homePage.clickRegisterLink(driver);
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getFirstNameErrorMessage(driver), "First name is required.");
-		assertEquals(registerPage.getLastNameErrorMessage(driver), "Last name is required.");
-		assertEquals(registerPage.getEmailErrorMessage(driver), "Email is required.");
-		assertEquals(registerPage.getElementText(driver, "//span[@id='Password-error']"), "Password is required.");
-		assertEquals(registerPage.getConfirmPasswordErrorMessage(driver), "Password is required.");
+		assertEquals(registerPage.getFirstNameErrorMessage(), "First name is required.");
+		assertEquals(registerPage.getLastNameErrorMessage(), "Last name is required.");
+		assertEquals(registerPage.getEmailErrorMessage(), "Email is required.");
+		assertEquals(registerPage.getPasswordErrorMessage(), "Password is required.");
+		assertEquals(registerPage.getConfirmPasswordErrorMessage(), "Password is required.");
 	}
 	
 	
 	@Test
 	public void TC_02_Register_Invalid_Email() {
-		homePage.clickRegisterLink(driver);
-		registerPage.inputEmail(driver, "Test123");
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.inputEmail("Test123");
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getEmailErrorMessage(driver), "Wrong email");
+		assertEquals(registerPage.getEmailErrorMessage(), "Wrong email");
 	}
 	
 	@Test
 	public void TC_03_Register_Sucessfully() {
-		homePage.clickRegisterLink(driver);
-		registerPage.selectMaleGender(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.selectDay(driver, day);
-		registerPage.selectMonth(driver, month);
-		registerPage.selectYear(driver, year);
-		registerPage.inputCompany(driver, company);
-		registerPage.inputEmail(driver, emailAddress);
-		registerPage.inputPassword(driver, password);
-		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.selectMaleGender();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.selectDay(day);
+		registerPage.selectMonth(month);
+		registerPage.selectYear(year);
+		registerPage.inputCompany(company);
+		registerPage.inputEmail(emailAddress);
+		registerPage.inputPassword(password);
+		registerPage.inputConfirmPassword(confirmPassword);
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getSuccessMessage(driver), "Your registration completed");
+		assertEquals(registerPage.getSuccessMessage(), "Your registration completed");
 		
-		homePage.clickLogOutLink(driver);
+		homePage.clickLogOutLink();
 		registerPage.sleepInSecond(1);
 	}
 	
 	@Test
 	public void TC_04_Register_Existed_Email() {
-		homePage.clickRegisterLink(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.inputEmail(driver, "test123@gmail.com");
-		registerPage.inputPassword(driver, password);
-		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.inputEmail("test123@gmail.com");
+		registerPage.inputPassword(password);
+		registerPage.inputConfirmPassword(confirmPassword);
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getExistingEmailErrorMessage(driver), "The specified email already exists");
+		assertEquals(registerPage.getExistingEmailErrorMessage(), "The specified email already exists");
 	}
 	
 	@Test
 	public void TC_05_Password_Less_Than_6() {
-		homePage.clickRegisterLink(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.inputEmail(driver, emailAddress);
-		registerPage.inputPassword(driver, "12345");
-		registerPage.inputConfirmPassword(driver, "12345");
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.inputEmail(emailAddress);
+		registerPage.inputPassword("12345");
+		registerPage.inputConfirmPassword("12345");
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getPasswordErrorMessage(driver), "Password must meet the following rules: must have at least 6 characters");
+		assertEquals(registerPage.getPasswordErrorMessage(), "Password must meet the following rules:"+"\n"+"must have at least 6 characters");
 	}
 	
 	@Test
 	public void TC_06_Incorrect_Confirm_Password() {
-		homePage.clickRegisterLink(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.inputEmail(driver, emailAddress);
-		registerPage.inputPassword(driver, password);
-		registerPage.inputConfirmPassword(driver, "12345");
-		registerPage.clickRegisterButton(driver);
+		homePage.clickRegisterLink();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.inputEmail(emailAddress);
+		registerPage.inputPassword(password);
+		registerPage.inputConfirmPassword("12345");
+		registerPage.clickRegisterButton();
 		
-		assertEquals(registerPage.getConfirmPasswordErrorMessage(driver), "The password and confirmation password do not match.");
+		assertEquals(registerPage.getConfirmPasswordErrorMessage(), "The password and confirmation password do not match.");
 	}
 	
 	@AfterClass
