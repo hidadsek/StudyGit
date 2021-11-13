@@ -63,7 +63,7 @@ public class TC_Update_Customer_Info {
 		registerPage.inputEmail(driver, emailAddress);
 		registerPage.inputPassword(driver, password);
 		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegister(driver);
+		registerPage.clickRegisterButton(driver);
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
 		registerPage.sleepInSecond(1);

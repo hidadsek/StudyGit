@@ -55,7 +55,7 @@ public class TC_Review_Product {
 		registerPage.inputEmail(driver, emailAddress);
 		registerPage.inputPassword(driver, password);
 		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegister(driver);
+		registerPage.clickRegisterButton(driver);
 		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.sleepInSecond(1);
@@ -90,6 +90,6 @@ public class TC_Review_Product {
 	
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
+		driver.quit();
 	}
 }

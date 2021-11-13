@@ -59,7 +59,7 @@ public class TC_Change_Password {
 		registerPage.inputEmail(driver, emailAddress);
 		registerPage.inputPassword(driver, password);
 		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegister(driver);
+		registerPage.clickRegisterButton(driver);
 		
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
