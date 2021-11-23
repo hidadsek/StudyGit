@@ -40,7 +40,7 @@ public class TC_Update_Customer_Info {
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext();
+		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		firstName = "Thuc";
@@ -53,17 +53,17 @@ public class TC_Update_Customer_Info {
 		year = "1995";
 		
 		registerPage.openBrowser(driver,"https://demo.nopcommerce.com/register?returnUrl=%2F");
-		registerPage.selectMaleGender(driver);
-		registerPage.inputFirstName(driver, firstName);
-		registerPage.inputLastName(driver, lastName);
-		registerPage.selectDay(driver, day);
-		registerPage.selectMonth(driver, month);
-		registerPage.selectYear(driver, year);
-		registerPage.inputCompany(driver, company);
-		registerPage.inputEmail(driver, emailAddress);
-		registerPage.inputPassword(driver, password);
-		registerPage.inputConfirmPassword(driver, confirmPassword);
-		registerPage.clickRegisterButton(driver);
+		registerPage.selectMaleGender();
+		registerPage.inputFirstName(firstName);
+		registerPage.inputLastName(lastName);
+		registerPage.selectDay(day);
+		registerPage.selectMonth(month);
+		registerPage.selectYear(year);
+		registerPage.inputCompany(company);
+		registerPage.inputEmail(emailAddress);
+		registerPage.inputPassword(password);
+		registerPage.inputConfirmPassword(confirmPassword);
+		registerPage.clickRegisterButton();
 		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.clickElement(driver, "//div[@class ='header-links']//a[text()='My account']");
 		registerPage.sleepInSecond(1);
