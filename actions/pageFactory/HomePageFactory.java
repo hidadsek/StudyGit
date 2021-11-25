@@ -2,6 +2,7 @@ package pageFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -15,15 +16,19 @@ public class HomePageFactory extends BasePageFactory {
 		PageFactory.initElements(driver, this);
 	}
 	
+	@CacheLookup
 	@FindBy(xpath = "//div[@class='header-links']//a[text()='Register']")
 	WebElement registerLink;
 	
+	@CacheLookup
 	@FindBy(xpath = "//div[@class='header-links']//a[text()='Log in']")
 	WebElement loginLink;
 	
+	@CacheLookup
 	@FindBy(xpath = "//a[text()='Log out']")
 	WebElement logoutLink;
 	
+	@CacheLookup
 	@FindBy(xpath = "//div[@class='header-links']//a[text()='My account']")
 	WebElement myAccountLink;
 	

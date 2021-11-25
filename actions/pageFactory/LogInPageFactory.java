@@ -2,6 +2,7 @@ package pageFactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -14,19 +15,23 @@ private WebDriver driver;
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
+	@CacheLookup
 	@FindBy(xpath = "//input[@id ='Email']")
 	WebElement emailTextbox;
 	
+	@CacheLookup
 	@FindBy(xpath = "//input[@id ='Password']")
 	WebElement passwordTextbox;
 	
+	@CacheLookup
 	@FindBy(xpath = "//button[text()='Log in']")
 	WebElement loginButton;
 	
+	@CacheLookup
 	@FindBy(xpath = "//span[@id='Email-error']")
 	WebElement emailErrorText;
 	
+	@CacheLookup
 	@FindBy(xpath = "//div[contains(@class,'validation-summary-errors')]")
 	WebElement loginErrorText;
 	
