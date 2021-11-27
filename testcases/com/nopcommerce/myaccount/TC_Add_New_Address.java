@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pageObjects.AddressPageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 
 public class TC_Add_New_Address {
 	WebDriver driver;
@@ -25,14 +25,14 @@ public class TC_Add_New_Address {
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
-		addressPage = new AddressPageObject();
+		addressPage = new AddressPageObject(driver);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
+		RegisterPageObject registerPage = new RegisterPageObject(driver);
 		
 		String emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
@@ -79,20 +79,20 @@ public class TC_Add_New_Address {
 		String addressPhoneNumber = "0123456789";
 		String addressFaxNumber = "0987456123";
 		
-		addressPage.clickAddNewButton(driver);
-		addressPage.inputFirstName(driver, addressFirstName);
-		addressPage.inputLastName(driver, addressLastName);
-		addressPage.inputEmail(driver, addressEmail);
+		addressPage.clickAddNewButton();
+		addressPage.inputFirstName(addressFirstName);
+		addressPage.inputLastName(addressLastName);
+		addressPage.inputEmail(addressEmail);
 		//addressPage.inputCompany(driver, addressCompany);
-		addressPage.selectCountry(driver, addressCountry);
-		addressPage.selectState(driver, addressState);
-		addressPage.inputCity(driver, addressCity);
-		addressPage.inputAddress1(driver, address1);
-		addressPage.inputAddress2(driver, address2);
-		addressPage.inputZip(driver, addressZip);
-		addressPage.inputPhoneNumber(driver, addressPhoneNumber);
+		addressPage.selectCountry(addressCountry);
+		addressPage.selectState(addressState);
+		addressPage.inputCity(addressCity);
+		addressPage.inputAddress1(address1);
+		addressPage.inputAddress2(address2);
+		addressPage.inputZip(addressZip);
+		addressPage.inputPhoneNumber(addressPhoneNumber);
 		//addressPage.inputFaxNumber(driver, addressFaxNumber);
-		addressPage.clickSaveButton(driver);
+		addressPage.clickSaveButton();
 		
 		assertEquals(addressPage.getElementText(driver,"//li[@class='name']"), addressFirstName + " "+ addressLastName);
 		assertEquals(addressPage.getElementText(driver,"//li[@class='email']"), "Email: "+ addressEmail);

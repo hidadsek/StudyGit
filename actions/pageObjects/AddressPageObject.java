@@ -6,80 +6,78 @@ import commons.BasePage;
 import pageUI.AddressPageUI;
 
 public class AddressPageObject extends BasePage {
-	public AddressPageUI addressPageUI = new AddressPageUI();
-	
-	public void openAddressPage(WebDriver driver) {
-		waitForElementClickable(driver, addressPageUI.addressLinkBy);
-		clickElement(driver, addressPageUI.addressLinkBy);
+	private WebDriver driver;	
+	public AddressPageObject(WebDriver driver) {
+		this.driver = driver;
 	}
 	
-	public void clickAddNewButton(WebDriver driver) {
-		waitForElementClickable(driver, addressPageUI.addButtonBy);
-		clickElement(driver, addressPageUI.addButtonBy);
+	public void clickAddNewButton() {
+		waitForElementClickable(driver, AddressPageUI.ADD_BUTTON);
+		clickElement(driver, AddressPageUI.ADD_BUTTON);
 	}
 	
-	public void inputFirstName(WebDriver driver, String firstName) {
-		waitForElementVisible(driver, addressPageUI.firstNameTextboxBy);
-		inputIntoElement(driver,addressPageUI.firstNameTextboxBy, firstName);
+	public void inputFirstName(String firstName) {
+		waitForElementVisible(driver, AddressPageUI.FIRSTNAME_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.FIRSTNAME_TEXTBOX, firstName);
 	}
 	
-	public void inputLastName(WebDriver driver, String lastName) {
-		waitForElementVisible(driver, addressPageUI.lastNameTextboxBy);
-		inputIntoElement(driver,addressPageUI.lastNameTextboxBy, lastName);
+	public void inputLastName(String lastName) {
+		waitForElementVisible(driver, AddressPageUI.LASTNAME_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.LASTNAME_TEXTBOX, lastName);
 	}
 	
-	public void inputEmail(WebDriver driver, String email) {
-		waitForElementVisible(driver, addressPageUI.emailTextboxBy);
-		inputIntoElement(driver,addressPageUI.emailTextboxBy, email);
+	public void inputEmail(String email) {
+		waitForElementVisible(driver, AddressPageUI.EMAIL_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.EMAIL_TEXTBOX, email);
 	}
 	
-	public void inputCompany(WebDriver driver, String company) {
-		waitForElementVisible(driver, addressPageUI.companyTextboxBy);
-		inputIntoElement(driver,addressPageUI.companyTextboxBy, company);
+	public void inputCompany(String company) {
+		waitForElementVisible(driver, AddressPageUI.COMPANY_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.COMPANY_TEXTBOX, company);
 	}
 
-	public void selectCountry(WebDriver driver, String country) {
-		waitForElementVisible(driver, addressPageUI.countryDropdownListBy);
-		selectItemInDefaultDropdown(driver,addressPageUI.countryDropdownListBy, country);
+	public void selectCountry(String country) {
+		waitForElementVisible(driver, AddressPageUI.COUNTRY_DROPDOWN);
+		selectItemInDefaultDropdown(driver,AddressPageUI.COUNTRY_DROPDOWN, country);
 	}
 	
-	public void selectState(WebDriver driver, String state) {
-		waitForElementVisible(driver, addressPageUI.stateDropdownListBy);
-		selectItemInDefaultDropdown(driver,addressPageUI.stateDropdownListBy, state);
+	public void selectState(String state) {
+		waitForElementVisible(driver, AddressPageUI.STATE_DROPDOWN);
+		selectItemInDefaultDropdown(driver,AddressPageUI.STATE_DROPDOWN, state);
 	}
 	
-	public void inputCity(WebDriver driver, String city) {
-		waitForElementVisible(driver, addressPageUI.cityTextboxBy);
-		inputIntoElement(driver,addressPageUI.cityTextboxBy, city);
+	public void inputCity(String city) {
+		waitForElementVisible(driver, AddressPageUI.CITY_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.CITY_TEXTBOX, city);
 	}
 	
-	public void inputAddress1(WebDriver driver, String address) {
-		waitForElementVisible(driver, addressPageUI.address1TextboxBy);
-		inputIntoElement(driver,addressPageUI.address1TextboxBy, address);
+	public void inputAddress1(String address) {
+		waitForElementVisible(driver, AddressPageUI.ADDRESS_1_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.ADDRESS_1_TEXTBOX, address);
 	}
 	
-	public void inputAddress2(WebDriver driver, String address) {
-		waitForElementVisible(driver, addressPageUI.address2TextboxBy);
-		inputIntoElement(driver,addressPageUI.address2TextboxBy, address);
+	public void inputAddress2(String address) {
+		waitForElementVisible(driver, AddressPageUI.ADDRESS_2_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.ADDRESS_2_TEXTBOX, address);
 	}
 	
-	public void inputZip(WebDriver driver, String zip) {
-		waitForElementVisible(driver, addressPageUI.zipTextboxBy);
-		inputIntoElement(driver,addressPageUI.zipTextboxBy, zip);
+	public void inputZip(String zip) {
+		waitForElementVisible(driver, AddressPageUI.ZIP_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.ZIP_TEXTBOX, zip);
 	}
 	
-	public void inputPhoneNumber(WebDriver driver, String phoneNumber) {
-		waitForElementVisible(driver, addressPageUI.phoneTextboxBy);
-		inputIntoElement(driver,addressPageUI.phoneTextboxBy, phoneNumber);
+	public void inputPhoneNumber(String phoneNumber) {
+		waitForElementVisible(driver, AddressPageUI.PHONE_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.PHONE_TEXTBOX, phoneNumber);
 	}
 	
-	public void inputFaxNumber(WebDriver driver, String faxNumber) {
-		waitForElementVisible(driver, addressPageUI.companyTextboxBy);
-		inputIntoElement(driver,addressPageUI.companyTextboxBy, faxNumber);
+	public void inputFaxNumber(String faxNumber) {
+		waitForElementVisible(driver, AddressPageUI.FAX_TEXTBOX);
+		inputIntoElement(driver,AddressPageUI.FAX_TEXTBOX, faxNumber);
 	}
 	
-	public void clickSaveButton(WebDriver driver) {
-		waitForElementClickable(driver, addressPageUI.saveButtonBy);
-		clickElement(driver, addressPageUI.saveButtonBy);
+	public void clickSaveButton() {
+		waitForElementClickable(driver, AddressPageUI.SAVE_BUTTON);
+		clickElement(driver, AddressPageUI.SAVE_BUTTON);
 	}
 }

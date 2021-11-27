@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 import pageObjects.ChangePasswordPageObject;
 import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 
 public class TC_Change_Password {
 	WebDriver driver;
@@ -29,14 +29,14 @@ public class TC_Change_Password {
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
-		changePasswordPage = new ChangePasswordPageObject();
+		changePasswordPage = new ChangePasswordPageObject(driver);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
+		RegisterPageObject registerPage = new RegisterPageObject(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
@@ -71,14 +71,14 @@ public class TC_Change_Password {
 	public void TC_01_Change_Password() {
 		String newPassword = "123457";
 		
-		changePasswordPage.inputOldPassword(driver, password);
-		changePasswordPage.inputNewPassword(driver, newPassword);
-		changePasswordPage.inputConfirmPassword(driver, newPassword);
-		changePasswordPage.clickChangePassword(driver);
+		changePasswordPage.inputOldPassword(password);
+		changePasswordPage.inputNewPassword(newPassword);
+		changePasswordPage.inputConfirmPassword(newPassword);
+		changePasswordPage.clickChangePassword();
 		
 		assertEquals(changePasswordPage.getElementText(driver,"//div[@class='bar-notification success']/p"), "Password was changed");
 		
-		changePasswordPage.closeSuccessPopUp(driver);
+		changePasswordPage.closeSuccessPopUp();
 		changePasswordPage.sleepInSecond(1);
 		changePasswordPage.clickElement(driver, "//div[@class='header-links']//a[text()='Log out']");
 		

@@ -1,4 +1,4 @@
-package com.nopcommerce.myaccount;
+package com.switchpage;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,14 +12,20 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import pageObjects.AddressPageObject;
+import pageObjects.CustomerInfoPageObject;
+import pageObjects.DownloadableProductPageObject;
+import pageObjects.HomePageObject;
 import pageObjects.MyProductReviewPageObject;
-import pageObjects.ProductPageObject;
-import pageObjects.ProductReviewPageObject;
+import pageObjects.OrderPageObject;
+import pageObjects.PageGeneratorManager;
 import pageObjects.RegisterPageObject;
-import pageObjects.SearchPageObject;
 
-public class TC_Review_Product {
-	WebDriver driver;	
+public class TC_01_NopCommerce_SwitchPage {
+	WebDriver driver;
+	HomePageObject homePage;
+	RegisterPageObject registerPage;
+	
 	String projectPath = System.getProperty("user.dir");
 	
 	@BeforeTest
@@ -32,9 +38,8 @@ public class TC_Review_Product {
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObject registerPage = new RegisterPageObject(driver);
-		
-		String emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
+		homePage = PageGeneratorManager.getHomePage(driver);
+		String emailAddress = "test"+ homePage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
 		String lastName= "Nguyen";
 		String company = "Livegroup";
@@ -44,6 +49,8 @@ public class TC_Review_Product {
 		String month = "May";
 		String year = "1995";
 		
+		homePage.openHomePage();
+		registerPage = homePage.clickRegisterLink();
 		registerPage.openBrowser(driver,"https://demo.nopcommerce.com/register?returnUrl=%2F");
 		registerPage.selectMaleGender();
 		registerPage.inputFirstName(firstName);
@@ -62,29 +69,12 @@ public class TC_Review_Product {
 	}
 	
 	@Test
-	public void TC_01_Review_Product() {	
-		SearchPageObject searchPage = new SearchPageObject(driver);
-		String searchValue = "Build your own computer";	
-		searchPage.inputSearch(searchValue);
-		searchPage.clickSearch();
-		searchPage.selectProduct(searchValue);
-		
-		ProductPageObject productPage = new ProductPageObject(driver);
-		productPage.clickReview();
-		
-		ProductReviewPageObject productReviewPage = new ProductReviewPageObject(driver);
-		String reviewTitle = "Order "+ productReviewPage.getRandomNumber();
-		String reviewText = "Testing" + productReviewPage.getRandomNumber();
-		String rating = "3";
-		productReviewPage.inputReviewTitle(reviewTitle);
-		productReviewPage.inputReviewText(reviewText);
-		productReviewPage.clickRating(rating);
-		productReviewPage.clickSubmitReview();
-		
-		MyProductReviewPageObject myReviewPage = new MyProductReviewPageObject(driver);
-		myReviewPage.openMyProductReviewPage(driver);
-		assertEquals(myReviewPage.getElementText(driver, "//div[@class='review-title']/strong"), reviewTitle);
-		assertEquals(myReviewPage.getElementText(driver, "//div[@class='review-text']"), reviewText);
+	public void TC_Navigate_Page() {	
+		CustomerInfoPageObject customerInfoPage = registerPage.clickMyAccountLink(driver);
+		AddressPageObject addressPage = customerInfoPage.openAddressPage(driver);
+		OrderPageObject orderPage = addressPage.openOrderPage(driver);
+		DownloadableProductPageObject downloadableProductPage = orderPage.openDownloadableProductPage(driver);
+		MyProductReviewPageObject myProductReviewPage = downloadableProductPage.openMyProductReviewPage(driver);
 	}
 	
 	@AfterClass

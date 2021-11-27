@@ -5,36 +5,34 @@ import org.openqa.selenium.WebDriver;
 import commons.BasePage;
 import pageUI.ChangePasswordPageUI;
 
-public class ChangePasswordPageObject extends BasePage {
-	public ChangePasswordPageUI changePasswordPageUI = new ChangePasswordPageUI();
-	
-	public void openChangePasswordPage (WebDriver driver) {
-		waitForElementClickable(driver, changePasswordPageUI.changePasswordLinkBy);
-		clickElement(driver, changePasswordPageUI.changePasswordLinkBy);
+public class ChangePasswordPageObject extends BasePage {	
+	private WebDriver driver;	
+	public ChangePasswordPageObject(WebDriver driver) {
+		this.driver = driver;
 	}
 	
-	public void inputOldPassword(WebDriver driver, String password) {
-		waitForElementVisible(driver, changePasswordPageUI.oldPasswordTextboxBy);
-		inputIntoElement(driver, changePasswordPageUI.oldPasswordTextboxBy, password);
+	public void inputOldPassword(String password) {
+		waitForElementVisible(driver, ChangePasswordPageUI.OLD_PASSWORD_TEXTBOX);
+		inputIntoElement(driver, ChangePasswordPageUI.OLD_PASSWORD_TEXTBOX, password);
 	}
 	
-	public void inputNewPassword(WebDriver driver, String password) {
-		waitForElementVisible(driver, changePasswordPageUI.newPasswordTextboxBy);
-		inputIntoElement(driver, changePasswordPageUI.newPasswordTextboxBy, password);
+	public void inputNewPassword(String password) {
+		waitForElementVisible(driver, ChangePasswordPageUI.NEW_PASSWORD_TEXTBOX);
+		inputIntoElement(driver, ChangePasswordPageUI.NEW_PASSWORD_TEXTBOX, password);
 	}
 	
-	public void inputConfirmPassword(WebDriver driver, String password) {
-		waitForElementVisible(driver, changePasswordPageUI.confirmPasswordTextboxBy);
-		inputIntoElement(driver, changePasswordPageUI.confirmPasswordTextboxBy, password);
+	public void inputConfirmPassword(String password) {
+		waitForElementVisible(driver, ChangePasswordPageUI.CONFIRM_PASSWORD_TEXTBOX);
+		inputIntoElement(driver, ChangePasswordPageUI.CONFIRM_PASSWORD_TEXTBOX, password);
 	}
 	
-	public void clickChangePassword(WebDriver driver) {
-		waitForElementClickable(driver, changePasswordPageUI.confirmPasswordTextboxBy);
-		clickElement(driver, changePasswordPageUI.changePasswordButtonBy);
+	public void clickChangePassword() {
+		waitForElementClickable(driver, ChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
+		clickElement(driver, ChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
 	}
 	
-	public void closeSuccessPopUp(WebDriver driver) {
-		waitForElementClickable(driver, changePasswordPageUI.closePopupButtonBy);
-		clickElement(driver, changePasswordPageUI.closePopupButtonBy);
+	public void closeSuccessPopUp() {
+		waitForElementClickable(driver, ChangePasswordPageUI.CLOSE_POPUP_BUTTON);
+		clickElement(driver, ChangePasswordPageUI.CLOSE_POPUP_BUTTON);
 	}
 }

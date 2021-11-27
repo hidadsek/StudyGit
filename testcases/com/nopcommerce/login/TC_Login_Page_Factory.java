@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 import pageFactory.LogInPageFactory;
 import pageObjects.HomePageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 
 public class TC_Login_Page_Factory {
 	WebDriver driver;
@@ -39,7 +39,7 @@ public class TC_Login_Page_Factory {
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
+		RegisterPageObject registerPage = new RegisterPageObject(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		String firstName = "Thuc";
@@ -120,7 +120,7 @@ public class TC_Login_Page_Factory {
 		loginPage.inputPassword(password);
 		loginPage.clickLoginButton();
 		
-		homePage.clickMyAccountLink();
+		homePage.clickMyAccountLink(driver);
 		assertTrue(homePage.isMyAccountLinkDisplayed());
 	}
 	

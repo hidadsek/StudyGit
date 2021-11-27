@@ -12,12 +12,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import pageObjects.HomePageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 
 public class TC_Register {
 	private WebDriver driver;
 	private HomePageObject homePage;
-	private RegisterPageObjext registerPage;
+	private RegisterPageObject registerPage;
 	private String emailAddress;
 	private String firstName = "Thuc";
 	private String lastName= "Nguyen";
@@ -36,7 +36,7 @@ public class TC_Register {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
 		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObjext(driver);
+		registerPage = new RegisterPageObject(driver);
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";
 		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -92,7 +92,7 @@ public class TC_Register {
 		homePage.clickRegisterLink();
 		registerPage.inputFirstName(firstName);
 		registerPage.inputLastName(lastName);
-		registerPage.inputEmail("test123@gmail.com");
+		registerPage.inputEmail(emailAddress);
 		registerPage.inputPassword(password);
 		registerPage.inputConfirmPassword(confirmPassword);
 		registerPage.clickRegisterButton();

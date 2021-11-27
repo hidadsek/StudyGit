@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
 import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 import pageUI.HomePageUI;
 
 public class HomePageObjectInit extends BasePage {

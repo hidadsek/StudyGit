@@ -6,26 +6,30 @@ import commons.BasePage;
 import pageUI.ProductReviewPageUI;
 
 public class ProductReviewPageObject extends BasePage {
-	public ProductReviewPageUI productReviewPage = new ProductReviewPageUI();
+	private WebDriver driver;
 	
-	public void inputReviewTitle(WebDriver driver, String reviewTitle) {
-		waitForElementVisible(driver, productReviewPage.reviewTitleTextboxBy);
-		inputIntoElement(driver, productReviewPage.reviewTitleTextboxBy, reviewTitle);
+	public ProductReviewPageObject(WebDriver driver) {
+		this.driver = driver;
 	}
 	
-	public void inputReviewText(WebDriver driver, String reviewText) {
-		waitForElementVisible(driver, productReviewPage.reviewTextAreaBy);
-		inputIntoElement(driver, productReviewPage.reviewTextAreaBy, reviewText);
+	public void inputReviewTitle(String reviewTitle) {
+		waitForElementVisible(driver, ProductReviewPageUI.REVIEW_TITLE_TEXTBOX);
+		inputIntoElement(driver, ProductReviewPageUI.REVIEW_TITLE_TEXTBOX, reviewTitle);
 	}
 	
-	public void clickRating(WebDriver driver, String rating) {
-		String xpath = productReviewPage.valueRadioButtonBy+ rating + "']";
+	public void inputReviewText(String reviewText) {
+		waitForElementVisible(driver, ProductReviewPageUI.REVIEW_TEXTAREA);
+		inputIntoElement(driver, ProductReviewPageUI.REVIEW_TEXTAREA, reviewText);
+	}
+	
+	public void clickRating(String rating) {
+		String xpath = ProductReviewPageUI.VALUE_RADIOBUTTON+ rating + "']";
 		waitForElementVisible(driver, xpath);
 		clickElement(driver, xpath);
 	}
 	
-	public void clickSubmitReview(WebDriver driver) {
-		waitForElementVisible(driver, productReviewPage.submitReviewButtonBy);
-		clickElement(driver, productReviewPage.submitReviewButtonBy);
+	public void clickSubmitReview() {
+		waitForElementVisible(driver, ProductReviewPageUI.SUBMIT_REVIEW_BUTTON);
+		clickElement(driver, ProductReviewPageUI.SUBMIT_REVIEW_BUTTON);
 	}
 }

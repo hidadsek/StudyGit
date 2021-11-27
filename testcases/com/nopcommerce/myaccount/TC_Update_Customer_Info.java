@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import pageObjects.CustomerInfoPageObject;
-import pageObjects.RegisterPageObjext;
+import pageObjects.RegisterPageObject;
 
 public class TC_Update_Customer_Info {
 	WebDriver driver;
@@ -33,14 +33,14 @@ public class TC_Update_Customer_Info {
 	public void beforeTest() {
 		System.setProperty("webdriver.chrome.driver", projectPath+File.separator+"driverBrowsers"+File.separator+"chromedriver.exe");
 		driver = new ChromeDriver();
-		customerInfoPage = new CustomerInfoPageObject();
+		customerInfoPage = new CustomerInfoPageObject(driver);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 	
 	@BeforeClass
 	public void beforeClass() {
-		RegisterPageObjext registerPage = new RegisterPageObjext(driver);
+		RegisterPageObject registerPage = new RegisterPageObject(driver);
 		
 		emailAddress = "test"+ registerPage.getRandomNumber()+"@gmail.com";		
 		firstName = "Thuc";
@@ -79,15 +79,15 @@ public class TC_Update_Customer_Info {
 		emailAddress = "automationfc.vn@gmail.com";
 		company ="Automation FC";
 		
-		customerInfoPage.selectFemaleGender(driver);
-		customerInfoPage.inputFirstName(driver, firstName);
-		customerInfoPage.inputLastName(driver, lastName);
-		customerInfoPage.selectDay(driver, day);
-		customerInfoPage.selectMonth(driver, month);
-		customerInfoPage.selectYear(driver, year);
-		customerInfoPage.inputEmail(driver, emailAddress);
-		customerInfoPage.inputCompany(driver, company);
-		customerInfoPage.clickSave(driver);
+		customerInfoPage.selectFemaleGender();
+		customerInfoPage.inputFirstName(firstName);
+		customerInfoPage.inputLastName(lastName);
+		customerInfoPage.selectDay(day);
+		customerInfoPage.selectMonth(month);
+		customerInfoPage.selectYear(year);
+		customerInfoPage.inputEmail(emailAddress);
+		customerInfoPage.inputCompany(company);
+		customerInfoPage.clickSave();
 		
 		assertTrue(customerInfoPage.isElementSelected(driver, customerInfoPage.customerInfoPageUI.femaleRadioButtonBy));
 		assertEquals(customerInfoPage.getElementAttribute(driver, customerInfoPage.customerInfoPageUI.firstNameTextboxBy, "value"),firstName);
