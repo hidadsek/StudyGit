@@ -82,7 +82,7 @@ public class TC_Review_Product {
 		productReviewPage.clickSubmitReview();
 		
 		MyProductReviewPageObject myReviewPage = new MyProductReviewPageObject(driver);
-		myReviewPage.openMyProductReviewPage(driver);
+		myReviewPage.openMyReviewPage(driver);
 		assertEquals(myReviewPage.getElementText(driver, "//div[@class='review-title']/strong"), reviewTitle);
 		assertEquals(myReviewPage.getElementText(driver, "//div[@class='review-text']"), reviewText);
 	}

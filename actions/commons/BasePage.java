@@ -1,3 +1,4 @@
+
 package commons;
 
 import java.util.List;
@@ -27,7 +28,6 @@ import pageObjects.OrderPageObject;
 import pageObjects.PageGeneratorManager;
 import pageObjects.RewardPointPageObject;
 import pageUI.BasePageUI;
-import pageUI.HomePageUI;
 
 public class BasePage {
 	
@@ -211,6 +211,9 @@ public class BasePage {
 		return driver.findElements(getByXpath(xpathLocator));
 	}
 	
+	private String getDynamicLocator(String locator, String...params) {
+		return String.format(locator, (Object[])params);
+	}
 	/** 
 	 * Click element
 	 * @param driver
@@ -218,6 +221,10 @@ public class BasePage {
 	 */	
 	public void clickElement(WebDriver driver, String xpathLocator) {
 		getElement(driver,xpathLocator).click();
+	}
+	
+	public void clickElement(WebDriver driver, String locator, String...params) {
+		getElement(driver, getDynamicLocator(locator, params)).click();
 	}
 	
 	/**
@@ -228,6 +235,12 @@ public class BasePage {
 	 */	
 	public void inputIntoElement(WebDriver driver, String xpathLocator, String input) {
 		WebElement element = getElement(driver, xpathLocator);
+		element.clear();
+		element.sendKeys(input);
+	}
+	
+	public void inputIntoElement(WebDriver driver, String xpathLocator, String input, String...params) {
+		WebElement element = getElement(driver, getDynamicLocator(xpathLocator, params));
 		element.clear();
 		element.sendKeys(input);
 	}
@@ -290,6 +303,10 @@ public class BasePage {
 		return getElement(driver, xpathLocator).getText();
 	}
 	
+	public String getElementText(WebDriver driver, String xpathLocator, String...params) {
+		return getElement(driver, getDynamicLocator(xpathLocator, params)).getText();
+	}
+	
 	/**
 	 * Get text of the element
 	 * @param driver
@@ -328,7 +345,11 @@ public class BasePage {
 	 * @return size of element list-
 	 */
 	public int getElementSize(WebDriver driver, String xpathLocator) {
-		return driver.findElements(getByXpath(xpathLocator)).size();
+		return getListElement(driver, xpathLocator).size();
+	}
+	
+	public int getElementSize(WebDriver driver, String xpathLocator, String...params) {
+		return getListElement(driver,getDynamicLocator(xpathLocator,params)).size();
 	}
 	
 	/**
@@ -350,7 +371,7 @@ public class BasePage {
 	 */
 	public void checkToDefaultCheckboxRadio(WebDriver driver, String xpathLocator) {
 		WebElement element = getElement(driver, xpathLocator);
-		if(element.isSelected()) {
+		if(!element.isSelected()) {
 			element.click();
 		}
 	}
@@ -373,6 +394,10 @@ public class BasePage {
 	 */
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
 		return getElement(driver, xpathLocator).isDisplayed();
+	}
+	
+	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String...params) {
+		return getElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
 	}
 	
 	/**
@@ -420,6 +445,11 @@ public class BasePage {
 	public void sendKeyboardToElement(WebDriver driver, String xpathLocator, Keys key) {
 		Actions action = new Actions(driver);
 		action.sendKeys(getElement(driver, xpathLocator),key).perform();
+	}
+	
+	public void sendKeyboardToElement(WebDriver driver, String xpathLocator, Keys key, String...params) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getElement(driver, getDynamicLocator(xpathLocator, params)),key).perform();
 	}
 	
 	/**
@@ -596,6 +626,11 @@ public class BasePage {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
 	}
 	
+	public void waitForElementVisible(WebDriver driver, String xpathLocator, String...params) {
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(getDynamicLocator(xpathLocator, params))));
+	}
+	
 	/**
 	 * wait for all elements to be display
 	 * @param driver
@@ -615,6 +650,11 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
 	}
+	
+	public void waitForElementClickable(WebDriver driver, String xpathLocator, String...params) {
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.elementToBeClickable(getByXpath(getDynamicLocator(xpathLocator, params))));
+	}
 		
 	/**
 	 * wait for the element to be invisible/no long display
@@ -624,6 +664,11 @@ public class BasePage {
 	public void waitForElementInvisible(WebDriver driver, String xpathLocator) {
 		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathLocator)));
+	}
+	
+	public void waitForElementInvisible(WebDriver driver, String xpathLocator, String...params) {
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(getDynamicLocator(xpathLocator, params))));
 	}
 	
 	/**
@@ -664,12 +709,6 @@ public class BasePage {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public CustomerInfoPageObject clickMyAccountLink(WebDriver driver) {
-		waitForElementClickable(driver, BasePageUI.MY_ACCOUNT_LINK);
-		clickElement(driver, BasePageUI.MY_ACCOUNT_LINK);
-		return PageGeneratorManager.getCustomerInfoPage(driver);
 	}
 	
 	public CustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
@@ -714,9 +753,14 @@ public class BasePage {
 		return PageGeneratorManager.getChangePasswordPage(driver);
 	}
 	
-	public MyProductReviewPageObject openMyProductReviewPage(WebDriver driver) {
+	public MyProductReviewPageObject openMyReviewPage(WebDriver driver) {
 		waitForElementClickable(driver, BasePageUI.MY_PRODUCT_REVIEW_LINK);
 		clickElement(driver, BasePageUI.MY_PRODUCT_REVIEW_LINK);
 		return PageGeneratorManager.getMyProductReviewPage(driver);
+	}
+	
+	public void clickMyAccountLink(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.MY_ACCOUNT_LINK);
+		clickElement(driver, BasePageUI.MY_ACCOUNT_LINK);
 	}
 }

@@ -63,18 +63,16 @@ public class TC_01_NopCommerce_SwitchPage {
 		registerPage.inputPassword(password);
 		registerPage.inputConfirmPassword(confirmPassword);
 		registerPage.clickRegisterButton();
-		
-		assertEquals(registerPage.getElementText(driver,"//*[@class='result']"), "Your registration completed");
 		registerPage.sleepInSecond(1);
 	}
 	
 	@Test
-	public void TC_Navigate_Page() {	
-		CustomerInfoPageObject customerInfoPage = registerPage.clickMyAccountLink(driver);
+	public void TC_Navigate_Page() {
+		registerPage.clickMyAccountLink(driver);
+		CustomerInfoPageObject customerInfoPage = registerPage.openCustomerInfoPage(driver);
 		AddressPageObject addressPage = customerInfoPage.openAddressPage(driver);
 		OrderPageObject orderPage = addressPage.openOrderPage(driver);
 		DownloadableProductPageObject downloadableProductPage = orderPage.openDownloadableProductPage(driver);
-		MyProductReviewPageObject myProductReviewPage = downloadableProductPage.openMyProductReviewPage(driver);
 	}
 	
 	@AfterClass
