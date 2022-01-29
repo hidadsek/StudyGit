@@ -4,6 +4,7 @@ package commons;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -18,6 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import net.bytebuddy.agent.builder.AgentBuilder.CircularityLock.Global;
 import pageObjects.AddressPageObject;
 import pageObjects.BackInStockSubscriptionPageObject;
 import pageObjects.ChangePasswordPageObject;
@@ -393,11 +395,33 @@ public class BasePage {
 	 * @return true/false
 	 */
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
-		return getElement(driver, xpathLocator).isDisplayed();
+		try {
+			return getElement(driver, xpathLocator).isDisplayed();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String...params) {
 		return getElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
+	}
+	
+	public boolean isElementUndisplayed(WebDriver driver, String xpathLocator) {
+		overideImplicitTimeout(driver,1);
+		List<WebElement> elements = getListElement(driver, xpathLocator);
+		overideImplicitTimeout(driver,30);
+		if(elements.size()==0) {
+			return true;
+		}
+		else if(elements.size()>0 && (!elements.get(0).isDisplayed())) {
+			return true;
+		}
+		else return false;
+	}
+	public void overideImplicitTimeout(WebDriver driver, int timeouts) {
+		driver.manage().timeouts().implicitlyWait(timeouts, TimeUnit.SECONDS);
 	}
 	
 	/**
@@ -414,6 +438,11 @@ public class BasePage {
 	 * Switch back to default/main frame
 	 * @param driver
 	 */
+	public boolean isElementNotInDOM(WebDriver driver, String xpathLocator) {
+		WebDriverWait wait = new WebDriverWait(driver,30);
+		return wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.xpath(xpathLocator))));
+	}
+	
 	public void switchToDefaultContent(WebDriver driver) {
 		driver.switchTo().defaultContent();
 	}
@@ -690,6 +719,7 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(xpathLocator)));
 	}
+	
 	
 	/**
 	 * Create a random number
